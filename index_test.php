@@ -170,12 +170,31 @@ $demoOrder20=[
 	'type' 		=> 'limit'
 ];
 
+
+$demoOrder100=[
+	'order_id' 	=> 'A100100',
+	'user_id' 	=> '20',
+	'market' 	=> 'BTC/USDT',
+	'price'		=> '7',
+	'quantity' 	=> '1.223',
+	'side' 		=> 'bid',
+	'type' 		=> 'limit'
+];
+$demoOrder101=[
+	'order_id' 	=> 'A100101',
+	'user_id' 	=> '20',
+	'market' 	=> 'BTC/USDT',
+	'price'		=> '7',
+	'quantity' 	=> '1.22',
+	'side' 		=> 'ask',
+	'type' 		=> 'limit'
+];
 echo '<pre>';
 //卖盘测试
-$info=$orderbook->processOrder($demoOrder1);
-$info=$orderbook->processOrder($demoOrder2);
-$info=$orderbook->processOrder($demoOrder3);
-$info=$orderbook->processOrder($demoOrder4);
+// $info=$orderbook->processOrder($demoOrder1);
+// $info=$orderbook->processOrder($demoOrder2);
+// $info=$orderbook->processOrder($demoOrder3);
+// $info=$orderbook->processOrder($demoOrder4);
 
 //买盘测试
 // $info=$orderbook->processOrder($demoOrder5);
@@ -197,6 +216,7 @@ $info=$orderbook->processOrder($demoOrder4);
 // $info=$orderbook->processOrder($demoOrder18);
 // $info=$orderbook->processOrder($demoOrder19);
 // $info=$orderbook->processOrder($demoOrder20);
-
+// $info=$orderbook->processOrder($demoOrder100);
+$info=$orderbook->processOrder($demoOrder101);
 print_r($info);
 echo '</pre>';

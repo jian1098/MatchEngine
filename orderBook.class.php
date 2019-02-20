@@ -42,11 +42,12 @@ class OrderBook {
 		if($order['side']=='ask'){	//处理卖单
 			//查找买盘是价格大于本价格的订单,价格降序排列
 			$orderArea=$this->orderRedis->getPriceArea($order['market'],$order['type'],'bid',$order['price'],9999999);//array(2) { ["A100004"]=> float(101) ["A100003"]=> float(102) }
+
 			if(count($orderArea)>0){	//有能撮合的订单->撮合
 				$orderArea=array_reverse($orderArea);//数组反转
 				foreach ($orderArea as $key => $value) {
 					$orderInfo=$this->orderRedis->getOrder($key); //根据orderid查找订单详情
-					if(round($order['quantity'],$this->precision)<=round($orderInfo['quantity'])){	//本单可售数量充足 
+					if(round($order['quantity'],$this->precision)<=round($orderInfo['quantity'],$this->precision)){	//本单可售数量充足 
 						$operaRes=$this->orderRedis->updateOrder($orderInfo['order_id'],'quantity',round($orderInfo['quantity']-$order['quantity'],$this->precision));//修改本单可售数量
 						$operaRes=$this->orderRedis->updateOrder($orderInfo['order_id'],'match_id',$orderInfo['match_id'].$order['order_id'].',');//修改本单撮合的id
 						$sellout=0;
@@ -67,7 +68,7 @@ class OrderBook {
 							'sell_id'	=>	$order['user_id'],	//卖家id
 							'buy_id'	=>	$orderInfo['user_id'],//买家id
 							'price'		=>	$orderInfo['price'],
-							'quantity'	=>	round($order['quantity'],4),
+							'quantity'	=>	round($order['quantity'],$this->precision),
 							'side'		=>	'ask',	//卖出
 							'market'	=>	$order['market'],
 							'sell_order'=>	$order['order_id'],//卖单id
@@ -138,7 +139,7 @@ class OrderBook {
 			if(count($orderArea)>0){	//有能撮合的订单->撮合
 				foreach ($orderArea as $key => $value) {
 					$orderInfo=$this->orderRedis->getOrder($key); //根据orderid查找订单详情
-					if(round($order['quantity'],$this->precision)<=round($orderInfo['quantity'])){	//本单可售数量充足 
+					if(round($order['quantity'],$this->precision)<=round($orderInfo['quantity'],$this->precision)){	//本单可售数量充足 
 						$operaRes=$this->orderRedis->updateOrder($orderInfo['order_id'],'quantity',round($orderInfo['quantity']-$order['quantity'],$this->precision));//修改本单可售数量
 						$operaRes=$this->orderRedis->updateOrder($orderInfo['order_id'],'match_id',$orderInfo['match_id'].$order['order_id'].',');//修改本单撮合的id
 						$sellout=0;

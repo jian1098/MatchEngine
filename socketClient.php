@@ -15,8 +15,8 @@ $connection = socket_connect($socket, $host, $port) or die("Could not connect se
 // 向服务端发送数据
 // $data='{"type":"order","code":1,"data":{"type":"limit","side":"bid","quantity":"20","price":"104","market":"BTC/USDT","user_id":15,"order_id":"A100015"}}';//订单处理
 // $data='{"type":"handicap","code":1,"data":{"type":"limit","market":"BTC/USDT"}}';//盘口数据
-// $data='{"type":"empty","code":1,"data":""}';//清空数据
-$data='{"type":"cancel","code":1,"data":{"type":"limit","market":"BTC/USDT","side":"ask","order_id":"A100004"}}';//取消订单
+$data='{"type":"empty","code":1,"data":""}';//清空数据
+// $data='{"type":"cancel","code":1,"data":{"type":"limit","market":"BTC/USDT","side":"ask","order_id":"A100004"}}';//取消订单
 
 socket_write($socket, $data) or die("Write failed.<br>");
 

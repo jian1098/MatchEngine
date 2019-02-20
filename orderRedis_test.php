@@ -123,7 +123,6 @@ echo '<pre>';
 // print_r($info);
 // $info=$orderRedis->getOrder('A100003');
 // print_r($info);
-
 // 盘口列表
 echo '<br>卖盘：<br>';
 $info=$orderRedis->getOrderBooks('BTC/USDT', 'limit', 'ask');
