@@ -44,7 +44,7 @@ class OrderBook {
 			$orderArea=$this->orderRedis->getPriceArea($order['market'],$order['type'],'bid',$order['price'],9999999);//array(2) { ["A100004"]=> float(101) ["A100003"]=> float(102) }
 
 			if(count($orderArea)>0){	//有能撮合的订单->撮合
-				$orderArea=array_reverse($orderArea);//数组反转
+				$orderArea=array_reverse($orderArea,true);//数组反转
 				foreach ($orderArea as $key => $value) {
 					$orderInfo=$this->orderRedis->getOrder($key); //根据orderid查找订单详情
 					if(round($order['quantity'],$this->precision)<=round($orderInfo['quantity'],$this->precision)){	//本单可售数量充足 
