@@ -266,11 +266,11 @@ class OrderBook {
 		$askArr=[];
 		$bidlist=$this->orderRedis->getOrderBooks($market, $type, 'bid');
 		foreach ($bidlist as $key => $value) {
-			if(!isset($bidArr[$value])){
-				$bidArr[$value]=0;
+			if(!isset($bidArr["$value"])){
+				$bidArr["$value"]=0;
 			}
 			$order=$this->orderRedis->getOrder($key);
-			$bidArr[$value]+=$order['quantity'];
+			$bidArr["$value"]+=$order['quantity'];
 		}
 		foreach ($bidArr as $key => $value) {
 			$handicap['bid'][]=['price'=>$key,'quantity'=>$value,'total'=>$key*$value];
@@ -278,11 +278,11 @@ class OrderBook {
 
 		$asklist=$this->orderRedis->getOrderBooks($market, $type, 'ask');
 		foreach ($asklist as $key => $value) {
-			if(!isset($askArr[$value])){
-				$askArr[$value]=0;
+			if(!isset($askArr["$value"])){
+				$askArr["$value"]=0;
 			}
 			$order=$this->orderRedis->getOrder($key);
-			$askArr[$value]+=$order['quantity'];
+			$askArr["$value"]+=$order['quantity'];
 		}
 		foreach ($askArr as $key => $value) {
 			$handicap['ask'][]=['price'=>$key,'quantity'=>$value,'total'=>$key*$value];
